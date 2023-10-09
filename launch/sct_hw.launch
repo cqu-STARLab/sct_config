@@ -1,0 +1,17 @@
+<launch>
+    <arg name="robot_name" default="scout1" doc="Robot name [scout1, scout2, scout3]"/>
+    <arg name="debug" default="false"/>
+
+
+    <arg unless="$(arg debug)" name="launch_prefix" value=""/>
+    <arg if="$(arg debug)" name="launch_prefix" value="gdbserver :1234"/>
+
+    <param name="robot_name" value="$(arg robot_name)"/>
+    <param name="robot_description"
+           command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro use_sim:=false "/>
+
+    <rosparam file="$(find sct_config)/config/sct_hw/scout_hw.yaml" command="load"/>
+
+    <node name="sct_hw" launch-prefix="$(arg launch_prefix)" pkg="sct_hw" type="sct_hw" respawn="false"
+          clear_params="true"/>
+</launch>

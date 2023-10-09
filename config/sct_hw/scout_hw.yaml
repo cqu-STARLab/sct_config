@@ -1,0 +1,10 @@
+sct_hw:
+  loop_frequency: 1000
+  cycle_time_error_threshold: 0.001
+  thread_priority: 95
+
+  name: scout1
+  # config can bus: sudo ip link set can0 up type can bitrate 500000
+  can_bus: can0
+
+
