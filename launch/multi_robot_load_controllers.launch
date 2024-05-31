@@ -1,0 +1,28 @@
+<launch>
+    <group ns="scout1">
+        <arg name="robot_ns" default="scout1" doc="Robot name [scout1, scout2, scout3]"/>
+        <rosparam file="$(find sct_config)/config/sct_controllers/scout_controllers.yaml" command="load"/>
+        <node name="controller_loader" pkg="controller_manager" type="controller_manager" output="screen"
+            args="spawn
+            controllers/chassis_controller
+            controllers/joint_state_controller"/>
+        <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0"/>
+            <param name="tf_prefix" type="string" value="$(arg robot_ns)"/>
+        </node>
+    </group>
+
+    <group ns="scout2">
+        <arg name="robot_ns" default="scout2" doc="Robot name [scout1, scout2, scout3]"/>
+        <rosparam file="$(find sct_config)/config/sct_controllers/scout_controllers.yaml" command="load"/>
+        <node name="controller_loader" pkg="controller_manager" type="controller_manager" output="screen"
+            args="spawn
+            controllers/chassis_controller
+            controllers/joint_state_controller"/>
+        <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0"/>
+            <param name="tf_prefix" type="string" value="$(arg robot_ns)"/>
+        </node>
+    </group>
+
+</launch>
