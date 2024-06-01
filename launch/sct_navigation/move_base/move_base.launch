@@ -1,0 +1,28 @@
+<launch>
+    <!-- rviz params -->
+    <arg name="open_rviz" default="false"/>
+    
+    <!-- move_base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/local_costmap_params.yaml" command="load"/>
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/global_costmap_params.yaml" command="load"/>
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/move_base_params.yaml" command="load"/>
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/teb_local_planner_params.yaml" command="load"/>
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                  ns="global_costmap"/>
+        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                  ns="local_costmap"/>
+    </node>
+
+    <!-- rviz -->
+    <group if="$(arg open_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" required="true"
+              args="-d $(find sct_config)/config/sct_navigation/rviz/rviz_config.rviz"/>
+    </group>
+
+
+</launch>
+
