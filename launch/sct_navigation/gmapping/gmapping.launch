@@ -17,7 +17,7 @@
     <!-- rviz -->
     <group if="$(arg load_rviz)">
         <node pkg="rviz" type="rviz" name="rviz" required="true"
-              args="-d $(find sct_config)/config/sct_navigation/rviz/rviz_config.rviz"/>
+              args="-d $(find sct_config)/config/rviz/navigation.rviz"/>
     </group>
 
 </launch>

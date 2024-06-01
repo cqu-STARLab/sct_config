@@ -13,16 +13,16 @@
         </include>
     </group>
 
-<!--     <group unless="$(arg using_gmaping)"> -->
-<!--         <node name="map_server" pkg="map_server" type="map_server" -->
-<!--               args="$(find sct_config)/map/$(arg map)"/> -->
+    <group unless="$(arg using_gmaping)">
+        <node name="map_server" pkg="map_server" type="map_server"
+              args="$(find sct_config)/map/$(arg map)"/>
 
-<!--         <include file="$(find sct_config)/launch/sct_navigation/amcl/amcl.launch"> -->
-<!--             <arg name="initial_pose_x" value="$(arg initial_pose_x)"/> -->
-<!--             <arg name="initial_pose_y" value="$(arg initial_pose_y)"/> -->
-<!--             <arg name="initial_pose_a" value="$(arg initial_pose_a)"/> -->
-<!--         </include> -->
-<!--     </group> -->
+        <include file="$(find sct_config)/launch/sct_navigation/amcl/amcl.launch">
+            <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+            <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+            <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+        </include>
+    </group>
 
     <!-- move_base -->
     <include file="$(find sct_config)/launch/sct_navigation/move_base/move_base.launch"/>

@@ -9,6 +9,5 @@ controllers:
   chassis_controller:
     type: sct_chassis_controller/Controller
     timeout: 0.1
-    max_acc_x: 10.0
-    max_acc_w: 10.0
-    vel_cmd_tp: cmd_vel
+    max_acc_x: 5.0
+    max_acc_w: 30.0
