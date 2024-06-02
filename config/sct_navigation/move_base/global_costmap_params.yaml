@@ -1,6 +1,6 @@
 global_costmap:
-  global_frame: map #地图坐标系
-  robot_base_frame: base_link #机器人坐标系
+#  global_frame: map #地图坐标系
+#  robot_base_frame: base_link #机器人坐标系
   # 以此实现坐标变换
 
   update_frequency: 2.0 #代价地图更新频率
@@ -13,4 +13,9 @@ global_costmap:
   #导航包所需要的传感器
   observation_sources: scan
   #对传感器的坐标系和数据进行配置。这个也会用于代价地图添加和清除障碍物。例如，你可以用激光雷达传感器用于在代价地图添加障碍物，再添加kinect用于导航和清除障碍物。
-  scan: { sensor_frame: radar_link, data_type: LaserScan, topic: scan, marking: true, clearing: true }
+  scan:
+    #    sensor_frame: radar_link
+    data_type: LaserScan
+    topic: scan
+    marking: true
+    clearing: true

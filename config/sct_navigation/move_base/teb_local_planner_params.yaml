@@ -92,5 +92,5 @@ TebLocalPlannerROS:
   weight_dynamic_obstacle_inflation: 10  #优化过程中，和动态障碍物膨胀区的权重 0~10
   weight_viapoint: 50             #优化过程中，和全局路径采样点距离的权重
 
-  map_frame: "map"
+#  map_frame: "map"
 

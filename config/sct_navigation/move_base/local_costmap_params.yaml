@@ -1,6 +1,6 @@
 local_costmap:
-  global_frame: odom #里程计坐标系
-  robot_base_frame: base_link #机器人坐标系
+#  global_frame: odom #里程计坐标系
+#  robot_base_frame: base_link #机器人坐标系
 
   update_frequency: 10.0 #代价地图更新频率
   publish_frequency: 10.0 #代价地图的发布频率
@@ -13,5 +13,10 @@ local_costmap:
 
   #导航包所需要的传感器
   observation_sources: scan
-  #对传感器的坐标系和数据进行配置。这个也会用于代价地图添加和清除障碍物。例如，你可以用激光雷达传感器用于在代价地图添加障碍物，再添加kinect用于导航和清除障碍物。
-  scan: { sensor_frame: radar_link, data_type: LaserScan, topic: scan, marking: true, clearing: true }
+  #对传感器的坐标系和数据进行配置。这个也会用于代价地图添加和清除障碍物
+  scan:
+#    sensor_frame: radar_link
+    data_type: LaserScan
+    topic: scan
+    marking: true
+    clearing: true
