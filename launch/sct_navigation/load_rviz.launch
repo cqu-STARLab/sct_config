@@ -1,9 +1,8 @@
 <launch>
-    <arg name="load_rviz" default="true"/>
-    <!--    rviz-->
-    <group if="$(arg load_rviz)">
-        <node pkg="rviz" type="rviz" name="rviz" required="true"
-              args="-d $(find sct_config)/config/rviz/navigation.rviz"/>
+    <group ns="scout">
+        <arg name="robot_ns" default="scout" doc="Robot name [scout1, scout2, scout3]"/>
+        <node pkg="rviz" type="rviz" name="rviz" required="true" ns="scout1"
+              args="-d $(find sct_config)/config/rviz/$(arg robot_ns)_navigation.rviz"/>
     </group>
 </launch>
 
