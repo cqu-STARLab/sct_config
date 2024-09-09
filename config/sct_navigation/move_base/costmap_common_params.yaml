@@ -8,3 +8,13 @@ raytrace_range: 4.0 # 用于清除障碍物，比如：值为 3.5，意味着清
 #膨胀半径，扩展在碰撞区域以外的代价区域，使得机器人规划路径避开障碍物
 inflation_radius: 0.5
 
+##导航包所需要的传感器
+#observation_sources: pointcloud2
+##对传感器的坐标系和数据进行配置。这个也会用于代价地图添加和清除障碍物
+#pointcloud2:
+#  #    sensor_frame: velodyne
+#  data_type: PointCloud2
+#  topic: velodyne_points
+#  marking: true
+#  clearing: true
+

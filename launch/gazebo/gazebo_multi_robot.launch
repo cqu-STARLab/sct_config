@@ -13,15 +13,15 @@
              args="-file $(find sct_gazebo)/models/task_model/model.sdf -sdf -model task_model"/>
 
 
-
-    <arg name="robot_ns" default="/" doc="Robot name [scout1, scout2, scout3]"/>
-    <rosparam file="$(find sct_gazebo)/config/scout_hw_sim.yaml" command="load" if="$(arg use_sim)"/>
-    <param name="robot_description"
-        command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
-        use_sim:=true robot_ns:=$(arg robot_ns)"/>
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
-        args="-x -1 -y -1 -z 0.2 -param robot_description -urdf -model $(arg robot_ns)" output="screen"/>
-
+    <group ns="scout1">
+        <arg name="robot_ns" default="scout1" doc="Robot name [scout1, scout2, scout3]"/>
+        <rosparam file="$(find sct_gazebo)/config/scout_hw_sim.yaml" command="load" if="$(arg use_sim)"/>
+        <param name="robot_description"
+            command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
+            use_sim:=true robot_ns:=$(arg robot_ns)"/>
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
+            args="-x -1 -y -1 -z 0.2 -param robot_description -urdf -model $(arg robot_ns)" output="screen"/>
+    </group>
 
 <!--     <group ns="scout2"> -->
 <!--         <arg name="robot_ns" default="scout2" doc="Robot name [scout1, scout2, scout3]"/> -->
