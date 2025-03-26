@@ -1,7 +1,7 @@
 # http://wiki.ros.org/gmapping#Example
 # radar:ULT-10LX
 map_update_interval: 10.0
-maxUrange: 11.0
+maxUrange: 200.0
 sigma: 0.05
 kernelSize: 1
 lstep: 0.05
@@ -20,10 +20,10 @@ angularUpdate: 0.2
 temporalUpdate: 0.5
 resampleThreshold: 0.5
 particles: 100
-xmin: -5.0
-ymin: -7.0
-xmax: 5.0
-ymax: 5.0
+xmin: -10.0
+ymin: -10.0
+xmax: 10.0
+ymax: 10.0
 # Resolution of the map
 delta: 0.05
 llsamplerange: 0.01
