@@ -24,7 +24,7 @@
         <arg name="map_frame" value="$(arg map_frame)"/>
     </include>
 
-    <!--     move_base -->
+    <!--  move_base -->
     <include file="$(find sct_config)/launch/sct_navigation/move_base/move_base.launch">
         <arg name="load_rviz" value="false"/>
         <arg name="load_urdf" value="false"/>
