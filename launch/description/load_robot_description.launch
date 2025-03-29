@@ -1,10 +1,28 @@
 <launch>
-    <arg name="use_sim"    default="false"/>
+    <arg name="use_sim"     default="false"/>
+    <arg name="load_gazebo"     default="false"/>
+
+    <arg name="robot_name"  default="scout"/>
+    <arg name="world"       default="test_world"/>
+    <arg name="paused"  default="false"/>
 
     <!-- load scout model -->
     <param name="robot_description"
-        command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
-        use_sim:=$(arg use_sim) "/>
+           command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
+           use_sim:=$(arg use_sim) robot_name:=$(arg robot_name)"/>
+
+    <group if="$(arg use_sim)">
+        <group if="$(arg load_gazebo)">
+            <include file="$(find gazebo_ros)/launch/empty_world.launch">
+                <arg name="paused" value="$(arg paused)"/>
+                <arg name="world_name" value="$(find sct_gazebo)/worlds/$(arg world).world"/>
+            </include>
+
+            <!-- push robot_description to factory and spawn robot in gazebo -->
+            <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
+                  args="-z 0.1 -param robot_description -urdf -model $(arg robot_name)" output="screen"/>
+        </group>
+    </group>
 
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
         <param name="rate" type="double" value="10.0"/>

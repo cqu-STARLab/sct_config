@@ -1,7 +1,8 @@
 <launch>
     <arg name="load_rviz"    default="true"/>
-
+    <arg name="load_urdf"      default="true"/>
     <arg name="use_sim"      default="true"/>
+
     <arg name="base_frame"   default="base_link" />
     <arg name="odom_frame"   default="odom" />
     <arg name="map_frame"    default="map" />
@@ -13,9 +14,13 @@
         <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
     </node>
 
-    <include file="$(find sct_config)/launch/description/load_robot_description.launch">
-      <arg name="use_sim"        value="$(arg use_sim)" />
-    </include>
+
+    <group if="$(arg load_urdf)">
+        <include file="$(find sct_config)/launch/description/load_robot_description.launch">
+            <arg name="use_sim"        value="$(arg use_sim)" />
+        </include>
+    </group>
+
 
     <group if="$(arg load_rviz)">
         <node pkg="rviz" type="rviz" name="gmapping_rviz" required="true"
