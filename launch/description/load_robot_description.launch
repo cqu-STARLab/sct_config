@@ -1,0 +1,16 @@
+<launch>
+    <arg name="use_sim"    default="false"/>
+
+    <!-- load scout model -->
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
+        use_sim:=$(arg use_sim) "/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="rate" type="double" value="10.0"/>
+    </node>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+          respawn="false" output="screen">
+    </node>
+</launch>
+

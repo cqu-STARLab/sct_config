@@ -1,17 +1,24 @@
 <launch>
-    <group ns="scout">
-        <arg name="robot_ns" default="scout" doc="Robot name [scout1, scout2, scout3]"/>
-        <arg name="load_rviz" default="true"/>
-        <node name="robot_slam_gmapping" pkg="gmapping" type="slam_gmapping" output="screen">
-            <param name="base_frame" value="$(arg robot_ns)_base_link"/>
-            <param name="odom_frame" value="$(arg robot_ns)_odom"/>
-            <param name="map_frame" value="$(arg robot_ns)_map"/>
-            <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
-        </node>
+    <arg name="load_rviz"    default="true"/>
 
-        <group if="$(arg load_rviz)">
-            <node pkg="rviz" type="rviz" name="rviz" required="true"
-                  args="-d $(find sct_config)/config/rviz/$(arg robot_ns)_navigation.rviz"/>
-        </group>
+    <arg name="use_sim"      default="true"/>
+    <arg name="base_frame"   default="base_link" />
+    <arg name="odom_frame"   default="odom" />
+    <arg name="map_frame"    default="map" />
+
+    <node name="robot_slam_gmapping" pkg="gmapping" type="slam_gmapping" output="screen">
+        <param name="base_frame" value="$(arg base_frame)"/>
+        <param name="odom_frame" value="$(arg odom_frame)"/>
+        <param name="map_frame" value="$(arg map_frame)"/>
+        <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
+    </node>
+
+    <include file="$(find sct_config)/launch/description/load_robot_description.launch">
+      <arg name="use_sim"        value="$(arg use_sim)" />
+    </include>
+
+    <group if="$(arg load_rviz)">
+        <node pkg="rviz" type="rviz" name="gmapping_rviz" required="true"
+              args="-d $(find sct_config)/config/rviz/gmapping.rviz"/>
     </group>
 </launch>
