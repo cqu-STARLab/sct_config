@@ -1,0 +1,43 @@
+<launch>
+    <arg name="load_rviz"    default="false"/>
+
+    <arg name="use_sim"    default="true"/>
+
+    <arg name="base_frame"   default="base_link" />
+    <arg name="odom_frame"   default="odom" />
+    <arg name="map_frame"    default="map" />
+    <arg name="sensor_frame"    default="ouster_lidar_link" />
+    <arg name="odom_topic"    default="odom" />
+
+    <arg name="robot_name" default="sct"/>
+
+    <!--  Attention: the file don't include gazebo launch  -->
+
+    <!--   robot   -->
+    <include file="$(find sct_config)/launch/description/multi_robot_description.launch">
+        <arg name="use_sim" value="$(arg use_sim)"/>
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="x" value="0"/>
+        <arg name="y" value="0"/>
+        <arg name="z" value="0.2"/>
+    </include>
+    <include file="$(find sct_config)/launch/sct_navigation/gmapping/multi_robot_gmapping.launch">
+        <arg name="load_rviz" value="false"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+    <include file="$(find sct_config)/launch/sct_navigation/move_base/multi_robot_move_base.launch">
+        <arg name="load_rviz" value="$(arg load_rviz)"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="sensor_frame" value="$(arg sensor_frame)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+
+</launch>
+
