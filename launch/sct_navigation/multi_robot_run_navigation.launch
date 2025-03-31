@@ -11,15 +11,20 @@
 
     <arg name="robot_name" default="sct"/>
 
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0.2"/>
+
+
     <!--  Attention: the file don't include gazebo launch  -->
 
     <!--   robot   -->
     <include file="$(find sct_config)/launch/description/multi_robot_description.launch">
         <arg name="use_sim" value="$(arg use_sim)"/>
         <arg name="robot_name" value="$(arg robot_name)"/>
-        <arg name="x" value="0"/>
-        <arg name="y" value="0"/>
-        <arg name="z" value="0.2"/>
+        <arg name="x" value="$(arg x)"/>
+        <arg name="y" value="$(arg y)"/>
+        <arg name="z" value="$(arg z)"/>
     </include>
     <include file="$(find sct_config)/launch/sct_navigation/gmapping/multi_robot_gmapping.launch">
         <arg name="load_rviz" value="false"/>

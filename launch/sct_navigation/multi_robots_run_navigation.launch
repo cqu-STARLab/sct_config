@@ -14,6 +14,7 @@
 
     <arg name="robot1_name" default="sct1"/>
     <arg name="robot2_name" default="sct2"/>
+    <arg name="robot3_name" default="sct3"/>
 
 
     <group if="$(arg use_sim)">
@@ -35,6 +36,9 @@
         <arg name="odom_topic" value="$(arg odom_topic)"/>
 
         <arg name="robot_name" value="$(arg robot1_name)"/>
+        <arg name="x" value="0"/>
+        <arg name="y" value="0"/>
+        <arg name="z" value="0.2"/>
     </include>
 
     <!--   robot2   -->
@@ -49,6 +53,26 @@
         <arg name="odom_topic" value="$(arg odom_topic)"/>
 
         <arg name="robot_name" value="$(arg robot2_name)"/>
+        <arg name="x" value="2"/>
+        <arg name="y" value="0"/>
+        <arg name="z" value="0.2"/>
+    </include>
+
+    <!--   robot3   -->
+    <include file="$(find sct_config)/launch/sct_navigation/multi_robot_run_navigation.launch">
+        <arg name="load_rviz" value="$(arg load_rviz)"/>
+        <arg name="use_sim" value="$(arg use_sim)"/>
+
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="sensor_frame" value="$(arg sensor_frame)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+
+        <arg name="robot_name" value="$(arg robot3_name)"/>
+        <arg name="x" value="0"/>
+        <arg name="y" value="2"/>
+        <arg name="z" value="0.2"/>
     </include>
 
     <group if="$(arg load_world_rviz)">
