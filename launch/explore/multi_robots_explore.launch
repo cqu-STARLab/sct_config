@@ -1,0 +1,40 @@
+<launch>
+    <arg name="load_rviz" default="false" />
+    <arg name="load_world_rviz" default="true" />
+
+    <arg name="costmap_topic" default="map" />
+    <arg name="base_frame" default="base_link" />
+    <arg name="explore_vis" default="true" />
+
+    <arg name="robot1_name" default="sct1"/>
+    <arg name="robot2_name" default="sct2"/>
+    <arg name="robot3_name" default="sct3"/>
+
+    <!--   robot1   -->
+    <include file="$(find sct_config)/launch/explore/multi_robot_explore.launch">
+        <arg name="robot_name" value="$(arg robot1_name)"/>
+        <arg name="costmap_topic" value="$(arg costmap_topic)"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="explore_vis" value="$(arg explore_vis)"/>
+    </include>
+
+
+    <!--   robot2   -->
+    <include file="$(find sct_config)/launch/explore/multi_robot_explore.launch">
+        <arg name="robot_name" value="$(arg robot2_name)"/>
+        <arg name="costmap_topic" value="$(arg costmap_topic)"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="explore_vis" value="$(arg explore_vis)"/>
+    </include>
+
+
+<!--      --><!--   robot3   -->
+<!--     <include file="$(find sct_config)/launch/explore/multi_robot_explore.launch"> -->
+<!--         <arg name="robot_name" value="$(arg robot3_name)"/> -->
+<!--         <arg name="costmap_topic" value="$(arg costmap_topic)"/> -->
+<!--         <arg name="base_frame" value="$(arg base_frame)"/> -->
+<!--         <arg name="explore_vis" value="$(arg explore_vis)"/> -->
+<!--     </include> -->
+
+
+</launch>
