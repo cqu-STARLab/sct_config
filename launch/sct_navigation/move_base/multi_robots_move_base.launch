@@ -1,0 +1,75 @@
+<launch>
+    <arg name="load_rviz"    default="true"/>
+    <arg name="load_urdf"      default="true"/>
+    <arg name="use_sim"      default="true"/>
+
+    <arg name="robot1_name" default="sct1"/>
+    <arg name="robot2_name" default="sct2"/>
+
+    <arg name="base_frame"   default="base_link" />
+    <arg name="odom_frame"   default="odom" />
+    <arg name="map_frame"    default="map" />
+    <arg name="sensor_frame"    default="ouster_lidar_link" />
+    <arg name="odom_topic"    default="odom" />
+
+
+    <group ns="$(arg robot1_name)">
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <param name="global_costmap/global_frame" value="$(arg robot1_name)/$(arg map_frame)"/>
+            <param name="global_costmap/robot_base_frame" value="$(arg robot1_name)/$(arg base_frame)"/>
+            <param name="global_costmap/scan/sensor_frame" value="$(arg robot1_name)/$(arg sensor_frame)"/>
+
+            <param name="local_costmap/global_frame" value="$(arg robot1_name)/$(arg map_frame)"/>
+            <param name="local_costmap/robot_base_frame" value="$(arg robot1_name)/$(arg base_frame)"/>
+            <param name="local_costmap/scan/sensor_frame" value="$(arg robot1_name)/$(arg sensor_frame)"/>
+
+            <param name="TebLocalPlannerROS/map_frame" value="$(arg map_frame)"/>
+            <param name="TebLocalPlannerROS/odom_topic" value="$(arg odom_topic)"/>
+
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/local_costmap_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/global_costmap_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/move_base_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/teb_local_planner_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                      ns="global_costmap"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                      ns="local_costmap"/>
+        </node>
+
+        <group if="$(arg load_rviz)">
+            <node pkg="rviz" type="rviz" name="navigation_rviz" required="true"
+                  args="-d $(find sct_config)/config/rviz/navigation/navigation_$(arg robot1_name).rviz"/>
+        </group>
+    </group>
+
+    <group ns="$(arg robot2_name)">
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <param name="global_costmap/global_frame" value="$(arg robot2_name)/$(arg map_frame)"/>
+            <param name="global_costmap/robot_base_frame" value="$(arg robot2_name)/$(arg base_frame)"/>
+            <param name="global_costmap/scan/sensor_frame" value="$(arg robot2_name)/$(arg sensor_frame)"/>
+
+            <param name="local_costmap/global_frame" value="$(arg robot2_name)/$(arg map_frame)"/>
+            <param name="local_costmap/robot_base_frame" value="$(arg robot2_name)/$(arg base_frame)"/>
+            <param name="local_costmap/scan/sensor_frame" value="$(arg robot2_name)/$(arg sensor_frame)"/>
+
+            <param name="TebLocalPlannerROS/map_frame" value="$(arg map_frame)"/>
+            <param name="TebLocalPlannerROS/odom_topic" value="$(arg odom_topic)"/>
+
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/local_costmap_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/global_costmap_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/move_base_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/teb_local_planner_params.yaml" command="load"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                      ns="global_costmap"/>
+            <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
+                      ns="local_costmap"/>
+        </node>
+
+        <group if="$(arg load_rviz)">
+            <node pkg="rviz" type="rviz" name="navigation_rviz" required="true"
+                  args="-d $(find sct_config)/config/rviz/navigation/navigation_$(arg robot2_name).rviz"/>
+        </group>
+    </group>
+
+</launch>
+

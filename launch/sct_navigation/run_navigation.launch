@@ -1,57 +1,53 @@
 <launch>
-
     <arg name="load_rviz"    default="true"/>
+    <arg name="load_urdf"    default="true"/>
+    <arg name="load_gazebo"    default="true"/>
+    <arg name="use_sim"      default="true"/>
 
-    <arg name="use_sim"      default="false"/>
+    <arg name="robot_name"      default="scout"/>
+    <arg name="world"      default="simple_task"/>
+    <arg name="paused"      default="false"/>
+
     <arg name="base_frame"   default="base_link" />
     <arg name="odom_frame"   default="odom" />
     <arg name="map_frame"    default="map" />
-    <arg name="sensor_frame" default="lidar_link" />
-
-    <node name="robot_slam_gmapping" pkg="gmapping" type="slam_gmapping" output="log">
-        <param name="base_frame" value="$(arg base_frame)"/>
-        <param name="odom_frame" value="$(arg odom_frame)"/>
-        <param name="map_frame" value="$(arg map_frame)"/>
-        <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
-    </node>
-
-    <!-- move_base -->
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-        <param name="global_costmap/global_frame" value="$(arg map_frame)"/>
-        <param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
-        <param name="global_costmap/scan/sensor_frame" value="$(arg sensor_frame)"/>
-
-        <param name="local_costmap/global_frame" value="$(arg map_frame)"/>
-        <param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
-        <param name="local_costmap/scan/sensor_frame" value="$(arg sensor_frame)"/>
-
-        <param name="TebLocalPlannerROS/map_frame" value="$(arg map_frame)"/>
-
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/local_costmap_params.yaml" command="load"/>
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/global_costmap_params.yaml" command="load"/>
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/move_base_params.yaml" command="load"/>
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/teb_local_planner_params.yaml" command="load"/>
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
-                  ns="global_costmap"/>
-        <rosparam file="$(find sct_config)/config/sct_navigation/move_base/costmap_common_params.yaml" command="load"
-                  ns="local_costmap"/>
-    </node>
+    <arg name="sensor_frame" default="ouster_lidar_link" />
+    <arg name="odom_topic"   default="odom" />
 
 
-    <!-- load scout model -->
-    <param name="robot_description"
-        command="$(find xacro)/xacro $(find sct_description)/urdf/scout/scout_mini.urdf.xacro
-        use_sim:=$(arg use_sim) "/>
-    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-        <param name="rate" type="double" value="10.0"/>
-    </node>
+    <include file="$(find sct_config)/launch/sct_navigation/gmapping/gmapping.launch">
+        <arg name="load_rviz" value="false"/>
+        <arg name="load_urdf" value="false"/>
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-          respawn="false" output="screen">
-    </node>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+    </include>
+
+    <!--  move_base -->
+    <include file="$(find sct_config)/launch/sct_navigation/move_base/move_base.launch">
+        <arg name="load_rviz" value="false"/>
+        <arg name="load_urdf" value="false"/>
+
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+    </include>
+
+    <group if="$(arg load_urdf)">
+        <include file="$(find sct_config)/launch/description/load_robot_description.launch">
+            <arg name="use_sim"             value="$(arg use_sim)" />
+            <arg name="load_gazebo"         value="$(arg load_gazebo)" />
+
+            <arg name="robot_name"        value="$(arg robot_name)" />
+            <arg name="world"        value="$(arg world)" />
+            <arg name="paused"        value="$(arg paused)" />
+        </include>
+    </group>
 
     <group if="$(arg load_rviz)">
-        <node pkg="rviz" type="rviz" name="rviz_navigation" required="true"
+        <node pkg="rviz" type="rviz" name="navigation_rviz" required="true"
               args="-d $(find sct_config)/config/rviz/navigation.rviz"/>
     </group>
 
