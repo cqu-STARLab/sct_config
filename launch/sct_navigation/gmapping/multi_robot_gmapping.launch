@@ -14,13 +14,19 @@
             <param name="base_frame" value="$(arg robot_name)/$(arg base_frame)"/>
             <param name="odom_frame" value="$(arg robot_name)/$(arg odom_frame)"/>
             <param name="map_frame" value="$(arg robot_name)/$(arg map_frame)"/>
+            <param name="delete_points" value="true"/>
             <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
         </node>
+
+
 
         <group if="$(arg load_rviz)">
             <node pkg="rviz" type="rviz" name="gmapping_rviz" required="true"
                   args="-d $(find sct_config)/config/rviz/gmapping/gmapping_$(arg robot_name).rviz"/>
         </group>
     </group>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="sct1_gmapping_tf" args="0 0 0 0 0 0  sct1/map sct1/odom"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="sct2_gmapping_tf" args="0 0 0 0 0 0  sct2/map sct2/odom"/>
 
 </launch>

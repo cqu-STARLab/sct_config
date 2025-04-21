@@ -1,0 +1,12 @@
+<launch>
+
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot type [sct]"/>
+
+    <include file="$(find sct_config)/launch/chassis_drive/multi_robot_chassis_driver.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+    <include file="$(find sct_config)/launch/ouster_drive/multi_robot_ouster_driver.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+</launch>
