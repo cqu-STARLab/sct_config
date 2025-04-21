@@ -4,7 +4,7 @@
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
     <arg name="z" default="0.2"/>
-    <arg name="robot_name" default="sct"/>
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot type [sct]"/>
 
 
     <group ns="$(arg robot_name)">
@@ -15,6 +15,9 @@
         <group if="$(arg use_sim)">
             <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
                 args="-x $(arg x) -y $(arg y) -z $(arg z) -param robot_description -urdf -model $(arg robot_name)" output="screen"/>
+
+            <rosparam command="load" file="$(find sct_gazebo)/config/control.yaml" />
+            <node name="controller_spawner" pkg="controller_manager" type="spawner" args="sct_chassis_controller" />
         </group>
 
         <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -26,8 +29,7 @@
             <param name="rate" type="double" value="50.0"/>
         </node>
 
-        <rosparam command="load" file="$(find sct_gazebo)/config/control.yaml" />
-        <node name="controller_spawner" pkg="controller_manager" type="spawner" args="sct_chassis_controller" />
+
     </group>
 </launch>
 

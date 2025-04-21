@@ -1,11 +1,11 @@
 <launch>
-    <arg name="load_rviz"    default="true"/>
+    <arg name="load_rviz"    default="false"/>
 
     <arg name="base_frame"   default="base_link" />
     <arg name="odom_frame"   default="odom" />
     <arg name="map_frame"    default="map" />
 
-    <arg name="robot_name" default="sct"/>
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot type [sct]"/>
 
     <group ns="$(arg robot_name)">
         <rosparam command="load" file="$(find sct_config)/config/sct_navigation/gmapping/gmapping_params.yaml"/>
