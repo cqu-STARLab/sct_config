@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /TF1/Frames1
         - /sct11
+        - /sct21
+        - /sct21/global cost Map1
       Splitter Ratio: 0.48022598028182983
     Tree Height: 2050
   - Class: rviz/Selection
@@ -350,22 +352,64 @@ Visualization Manager:
             Expand Link Details: false
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+            inertial_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+            left_front_wheel:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+            left_rear_wheel:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+            ouster_imu_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+            ouster_lidar_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+            ouster_sensor_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+            right_front_wheel:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+            right_rear_wheel:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
           Name: RobotModel
           Robot Description: /sct2/robot_description
           TF Prefix: sct2
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 0.699999988079071
+        - Alpha: 0.20000000298023224
           Class: rviz/Map
           Color Scheme: costmap
           Draw Behind: false
-          Enabled: false
+          Enabled: true
           Name: global cost Map
           Topic: /sct2/move_base/global_costmap/costmap
           Unreliable: false
           Use Timestamp: false
-          Value: false
+          Value: true
         - Class: rviz/TF
           Enabled: false
           Filter (blacklist): ""
@@ -402,7 +446,7 @@ Visualization Manager:
           Reference Frame: sct2/base_link
           Show Trail: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: sct2
     - Class: rviz/Group
       Displays:
@@ -637,7 +681,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.3802835941314697
+      Distance: 34.27372360229492
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -645,25 +689,25 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 2.099755048751831
-        Y: 0.3026725649833679
-        Z: -0.38203245401382446
+        X: -1.7066278457641602
+        Y: 0.0671038031578064
+        Z: -2.2471489906311035
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.1197948455810547
+      Pitch: 1.2097961902618408
       Target Frame: <Fixed Frame>
-      Yaw: 4.524013996124268
+      Yaw: 0.035830263048410416
     Saved: ~
 Window Geometry:
   Displays:
-    collapsed: false
+    collapsed: true
   Height: 2560
-  Hide Left Dock: false
-  Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000377000008fafc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed0000038400000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000008fa0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f000008fafc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000008fa0000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000f300000005efc0100000002fb0000000800540069006d0065010000000000000f30000006dc00fffffffb0000000800540069006d0065010000000000000450000000000000000000000a42000008fa00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Hide Left Dock: true
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd000000040000000000000377000008fafc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed0000038400000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000006e000008fa0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f000008fafc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000008fa0000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007980000005efc0100000002fb0000000800540069006d0065010000000000000798000006dc00fffffffb0000000800540069006d0065010000000000000450000000000000000000000798000008fa00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -671,7 +715,7 @@ Window Geometry:
   Tool Properties:
     collapsed: false
   Views:
-    collapsed: false
-  Width: 3888
+    collapsed: true
+  Width: 1944
   X: 144
   Y: 54
