@@ -1,5 +1,5 @@
 <launch>
-    <arg name="robot_name" default="sct"/>
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot type [sct]"/>
 
     <arg name="costmap_topic" default="map" />
     <arg name="base_frame" default="base_link" />
