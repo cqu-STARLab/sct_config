@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot name as namespace"/>
+
+    <!--   robot   -->
+    <group ns="$(arg robot_name)">
+        <include file="$(find ouster_ros)/launch/sensor.launch" />
+    </group>
+
+</launch>
