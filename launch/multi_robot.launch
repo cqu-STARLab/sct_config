@@ -1,0 +1,86 @@
+<launch>
+    <arg name="robot_name" default="$(env ROBOT_NAME)" doc="Robot type [sct]"/>
+    <arg name="anchor_robot" default="sct1"/>
+
+    <!-- visual -->
+    <arg name="load_navigation_rviz"    default="false"/>
+    <arg name="load_lio_rviz"           default="false"/>
+    <arg name="load_world_rviz"         default="false"/>
+
+    <!-- frame id set -->
+    <arg name="world_frame" default="world"/>
+    <arg name="map_frame"    default="map" />
+    <arg name="odom_frame"   default="odom" />
+    <arg name="base_frame"   default="base_link" />
+    <arg name="sensor_frame"    default="ouster_lidar_link" />
+
+    <!-- topic name set -->
+    <arg name="odom_topic"              default="odom" />
+    <arg name="costmap_topic"           default="map" />
+    <arg name="point_topic_world"       default="cloud_registered_world" />
+
+    <!--   sim or real   -->
+    <arg name="use_sim"       default="false"/>
+    <arg name="gazebo_world"  default="test_world"/>
+    <arg name="paused"        default="false"/>
+
+    <!--   use sim?   -->
+    <group if="$(arg use_sim)">
+        <include file="$(find sct_config)/launch/gazebo/load_sim_world.launch">
+            <arg name="world" value="$(arg gazebo_world)"/>
+            <arg name="paused" value="$(arg paused)"/>
+        </include>
+    </group>
+    <group unless="$(arg use_sim)">
+        <!--   robot chassis_drive   -->
+        <include file="$(find sct_config)/launch/chassis_drive/multi_robot_chassis_driver.launch">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+        </include>
+        <!--   multi_robot_ouster_driver   -->
+        <include file="$(find sct_config)/launch/ouster_drive/multi_robot_ouster_driver.launch">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+        </include>
+    </group>
+
+    <!--   multi_robot_lio_mapping   -->
+    <include file="$(find simple_lio)/launch/multi_robot_lio_mapping.launch">
+        <arg name="load_rviz" value="false"/>
+        <arg name="robot_name" value="$(arg robot_name)"/>
+
+        <arg name="body_frame" value="$(arg sensor_frame)"/>
+        <arg name="init_frame" value="$(arg odom_frame)"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+    </include>
+
+    <!--   multi_robots_align_coordinate   -->
+    <include file="$(find sct_config)/launch/align_coordinate/multi_robots_align_coordinate.launch">
+        <arg name="anchor_robot" value="$(arg anchor_robot)"/>
+        <arg name="cur_robot" value="$(arg robot1_name)"/>
+    </include>
+
+    <!--   multi_robot_run_navigation   -->
+    <include file="$(find sct_config)/launch/sct_navigation/multi_robot_run_navigation.launch">
+        <arg name="load_rviz" value="false"/>
+        <arg name="use_sim" value="$(arg use_sim)"/>
+
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="sensor_frame" value="$(arg sensor_frame)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="x" value="0"/>
+        <arg name="y" value="0"/>
+        <arg name="z" value="0"/>
+    </include>
+
+    <!--   multi_robot_explore   -->
+    <include file="$(find sct_config)/launch/explore/multi_robot_explore.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="costmap_topic" value="$(arg costmap_topic)"/>
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="explore_vis" value="$(arg true)"/>
+    </include>
+
+</launch>
