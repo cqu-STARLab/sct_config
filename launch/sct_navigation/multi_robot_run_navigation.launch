@@ -26,13 +26,22 @@
         <arg name="y" value="$(arg y)"/>
         <arg name="z" value="$(arg z)"/>
     </include>
-    <include file="$(find sct_config)/launch/sct_navigation/gmapping/multi_robot_gmapping.launch">
+
+    <!-- <include file="$(find sct_config)/launch/sct_navigation/gmapping/multi_robot_gmapping.launch">
         <arg name="load_rviz" value="false"/>
         <arg name="base_frame" value="$(arg base_frame)"/>
         <arg name="odom_frame" value="$(arg odom_frame)"/>
         <arg name="map_frame" value="$(arg map_frame)"/>
         <arg name="robot_name" value="$(arg robot_name)"/>
+    </include> -->
+
+    <include file="$(find sct_config)/launch/sct_navigation/cartographer/multi_robot_cartographer.launch">
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="odom_frame" value="$(arg odom_frame)"/>
+        <arg name="map_frame" value="$(arg map_frame)"/>
+        <arg name="robot_name" value="$(arg robot_name)"/>
     </include>
+
     <include file="$(find sct_config)/launch/sct_navigation/move_base/multi_robot_move_base.launch">
         <arg name="load_rviz" value="$(arg load_rviz)"/>
         <arg name="base_frame" value="$(arg base_frame)"/>

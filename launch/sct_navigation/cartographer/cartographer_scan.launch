@@ -7,8 +7,7 @@
           -configuration_basename cartographer_$(arg lidar_type).lua"
       output="screen">
 
-      <remap from="imu" to="imu_raw"/>
-      <remap from="odom" to="/odom"/>
+      <remap from="imu" to="ouster/imu"/>
     </node>
 
     <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
