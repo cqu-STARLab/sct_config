@@ -3,7 +3,7 @@
     <arg name="load_world_rviz"    default="true"/>
 
     <arg name="use_sim"       default="true"/>
-    <arg name="gazebo_world"  default="test_world"/>
+    <arg name="gazebo_world"  default="simple_world"/>
     <arg name="paused"        default="false"/>
 
     <arg name="base_frame"   default="base_link" />
