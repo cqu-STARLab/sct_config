@@ -1,0 +1,8 @@
+SimpleLocalPlanner:
+  K_linear: 0.12
+  K_angle: 1.5
+  max_x_vel_: 1.0
+  max_w_vel_: 3.14
+  xy_goal_tolerance: 0.5
+  look_ahead_: 2.0
+  debug_flag: False
